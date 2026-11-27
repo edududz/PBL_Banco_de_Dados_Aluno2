@@ -1,18 +1,18 @@
-Nested Loop  (cost=358.26..364.21 rows=100 width=608) (actual time=0.087..0.326 rows=100.00 loops=1)
+Nested Loop  (cost=358.18..364.12 rows=100 width=608) (actual time=0.026..0.098 rows=100.00 loops=1)
   Buffers: shared hit=119
   CTE ultimas
-    ->  Limit  (cost=6.93..358.12 rows=100 width=78) (actual time=0.072..0.150 rows=100.00 loops=1)
+    ->  Limit  (cost=6.93..358.04 rows=100 width=78) (actual time=0.023..0.051 rows=100.00 loops=1)
           Buffers: shared hit=107
           InitPlan 1
-            ->  Seq Scan on componentes c  (cost=0.00..6.50 rows=1 width=8) (actual time=0.013..0.035 rows=1.00 loops=1)
+            ->  Seq Scan on componentes c  (cost=0.00..6.50 rows=1 width=8) (actual time=0.003..0.011 rows=1.00 loops=1)
                   Filter: ((codigo)::text = 'COR-002'::text)
                   Rows Removed by Filter: 199
                   Buffers: shared hit=4
-          ->  Index Scan using idx_mov_componente_momento_id on movimentacoes m  (cost=0.43..35112.66 rows=9998 width=78) (actual time=0.071..0.138 rows=100.00 loops=1)
+          ->  Index Scan using idx_mov_componente_momento_id on movimentacoes m  (cost=0.43..35104.23 rows=9998 width=78) (actual time=0.022..0.045 rows=100.00 loops=1)
                 Index Cond: ((componente_id = (InitPlan 1).col1) AND (momento >= '2026-08-01'::date) AND (momento < '2026-11-11'::date))
                 Index Searches: 1
                 Buffers: shared hit=107
-  ->  CTE Scan on ultimas u  (cost=0.00..2.00 rows=100 width=558) (actual time=0.076..0.214 rows=100.00 loops=1)
+  ->  CTE Scan on ultimas u  (cost=0.00..2.00 rows=100 width=558) (actual time=0.023..0.069 rows=100.00 loops=1)
         Storage: Memory  Maximum Storage: 27kB
         Buffers: shared hit=107
   ->  Memoize  (cost=0.14..0.28 rows=1 width=66) (actual time=0.000..0.000 rows=1.00 loops=100)
@@ -20,9 +20,9 @@ Nested Loop  (cost=358.26..364.21 rows=100 width=608) (actual time=0.087..0.326 
         Cache Mode: logical
         Hits: 94  Misses: 6  Evictions: 0  Overflows: 0  Memory Usage: 1kB
         Buffers: shared hit=12
-        ->  Index Scan using depositos_pkey on depositos d  (cost=0.13..0.27 rows=1 width=66) (actual time=0.002..0.002 rows=1.00 loops=6)
+        ->  Index Scan using depositos_pkey on depositos d  (cost=0.13..0.27 rows=1 width=66) (actual time=0.001..0.001 rows=1.00 loops=6)
               Index Cond: (id = u.deposito_id)
               Index Searches: 6
               Buffers: shared hit=12
-Planning Time: 0.280 ms
-Execution Time: 0.374 ms
+Planning Time: 0.071 ms
+Execution Time: 0.111 ms
